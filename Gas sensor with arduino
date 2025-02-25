@@ -1,0 +1,24 @@
+#define GAS_SENSOR_PIN A0  // Analog pin connected to gas sensor
+#define BUZZER_PIN 9       // Digital pin connected to buzzer
+#define THRESHOLD 300      // Adjust based on sensor readings
+
+void setup() {
+    pinMode(GAS_SENSOR_PIN, INPUT);
+    pinMode(BUZZER_PIN, OUTPUT);
+    Serial.begin(9600);
+}
+
+void loop() {
+    int gasValue = analogRead(GAS_SENSOR_PIN);  // Read gas sensor value
+    Serial.print("Gas Sensor Value: ");
+    Serial.println(gasValue);
+
+    if (gasValue > THRESHOLD) {  // If gas is detected
+        digitalWrite(BUZZER_PIN, HIGH);  // Turn on buzzer
+        Serial.println("Gas Detected! Buzzer ON");
+    } else {
+        digitalWrite(BUZZER_PIN, LOW);   // Turn off buzzer
+    }
+
+    delay(500);  // Wait for 500ms before next reading
+}
